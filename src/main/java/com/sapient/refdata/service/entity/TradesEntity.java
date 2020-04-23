@@ -1,6 +1,8 @@
 package com.sapient.refdata.service.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -13,6 +15,7 @@ import com.sapient.refdata.service.enumation.TradeStatus;
 public class TradesEntity {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String tradeId;
 	private Side side;
 	private Integer quantity;
