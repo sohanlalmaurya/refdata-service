@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -16,24 +17,27 @@ public class TradesEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String tradeId;
+	private Integer tradeId;
 	private Side side;
 	private Integer quantity;
 	private Double price;
 	private TradeStatus status;
 	
 	@ManyToOne
+	@JoinColumn(name = "commodity_id")
 	private CommodityEntity commodityId;
 	
 	@ManyToOne
+	@JoinColumn(name = "counterparty_id")
 	private CounterpartyEntity counterpartyId;
 	
 	@ManyToOne
+	@JoinColumn(name = "location_id")
 	private LocationEntity locationId;
 	
 	public TradesEntity() {}
 
-	public TradesEntity(String tradeId, Side side, Integer quantity, Double price, TradeStatus status,
+	public TradesEntity(Integer tradeId, Side side, Integer quantity, Double price, TradeStatus status,
 			CommodityEntity commodityId, CounterpartyEntity counterpartyId, LocationEntity locationId) {
 		super();
 		this.tradeId = tradeId;
@@ -46,11 +50,11 @@ public class TradesEntity {
 		this.locationId = locationId;
 	}
 
-	public String getTradeId() {
+	public Integer getTradeId() {
 		return tradeId;
 	}
 
-	public void setTradeId(String tradeId) {
+	public void setTradeId(Integer tradeId) {
 		this.tradeId = tradeId;
 	}
 
