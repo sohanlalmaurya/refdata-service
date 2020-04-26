@@ -3,6 +3,7 @@
  */
 package com.sapient.refdata.service.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.sapient.refdata.service.model.TradesModel;
 import com.sapient.refdata.service.service.TradesService;
 
@@ -44,8 +46,15 @@ public class TradesController {
 	}
 
 	@GetMapping("/trades")
+	@HystrixCommand(fallbackMethod = "fallbackGetTrades()")
 	public ResponseEntity<List<TradesModel>> getTrades() {
 		logger.info("{}", "test------------>>>>>>>>");
 		return ResponseEntity.ok(tradesService.findAll());
+	}
+	
+	
+	public ResponseEntity<List<TradesModel>> fallbackGetTrades() {
+		logger.info("{}", "test------------>>>>>>>>");
+		return ResponseEntity.ok(new ArrayList<TradesModel>());
 	}
 }
